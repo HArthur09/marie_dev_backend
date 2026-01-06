@@ -11,7 +11,7 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-settings_module = 'mairie.mairie.deployement_settings' if 'Render_external_hostname' in os.environ else 'mairie.mairie.settings'
+settings_module = 'mairie.deployement_settings' if 'Render_external_hostname' in os.environ else 'mairie.settings'
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
 
 application = get_asgi_application()
