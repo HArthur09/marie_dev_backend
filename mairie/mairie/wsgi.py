@@ -11,8 +11,8 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-settings_module = 'mairie.deployement_settings' if 'Render_external_hostname' in os.environ else 'mairie.settings'
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
+#settings_module = 'mairie.deployement_settings' if 'Render_external_hostname' in os.environ else 'mairie.settings'
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mairie.deployement_settings')
 
 application = get_wsgi_application()
 
