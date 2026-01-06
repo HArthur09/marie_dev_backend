@@ -3,8 +3,8 @@ import dj_database_url
 from .settings import *
 from .settings import BASE_DIR
 
-ALLOWED_HOSTS = [os.environ.get('Render_external_hostname')]
-CSRF_TRUSTED_ORIGINS = ['https://' + os.environ.get('Render_external_hostname')]
+ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME')]
+CSRF_TRUSTED_ORIGINS = ['https://' + os.environ.get('RENDER_EXTERNAL_HOSTNAME')]
 
 DEBUG = False
 
@@ -23,7 +23,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-cors_allowed_origins = os.environ.get('CORS_ALLOWED_ORIGINS')
+CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS')
 
 STORAGES = {
     "default": {
@@ -40,3 +40,6 @@ DATABASES = {
         conn_max_age=600
     )
 }
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
