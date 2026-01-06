@@ -3,8 +3,8 @@ import dj_database_url
 from .settings import *
 from .settings import BASE_DIR
 
-ALLOWED_HOSTS = [os.environ.get['Render_external_hostname']]
-CSRF_TRUSTED_ORIGINS = ['https://' + os.environ.get['Render_external_hostname']]
+ALLOWED_HOSTS = [os.environ.get('Render_external_hostname')]
+CSRF_TRUSTED_ORIGINS = ['https://' + os.environ.get('Render_external_hostname')]
 
 DEBUG = False
 
