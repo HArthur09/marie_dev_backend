@@ -51,8 +51,19 @@ INSTALLED_APPS = [
     'mariage',
     'corsheaders',
     'django_crontab',
+    'drf_spectacular',
 ]
 
+
+# Configuration optionnelle mais recommandée
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'API Mairie',
+    'DESCRIPTION': 'Documentation des services de la mairie',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # Permet de regrouper les endpoints par tags (ex: utilisateur, mariage)
+    'COMPONENT_SPLIT_PATCH': True,
+}
 
 # Configuration des tâches cron
 CRONJOBS = [
@@ -66,6 +77,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 
