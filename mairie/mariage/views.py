@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, filters
 from rest_framework.response import Response
 import threading
 from django.db import connection
@@ -20,11 +20,25 @@ class MariageViewSet(viewsets.ModelViewSet):
     serializer_class = MariageSerializer
     lookup_field='id'
     
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['status', 'date_celebration', 'nom_maire', 'infos_homme__nom', 'infos_femme__nom']
+    ordering_fields = ['date_celebration', 'heure_celebration']
     
-    """ def get_serializer_class(self):
-        if self.request.method in ['GET']:
-            return MariageReadSerializer
-        return MariageSerializer """
+    def perform_destroy(self, instance):
+        # Supprimer les documents, homme et femme associés
+        homme = instance.infos_homme
+        femme = instance.infos_femme
+        documents = instance.id_dossier
+        
+        instance.delete()
+        if documents:
+            documents.delete()
+        if homme:
+            homme.delete()
+        if femme:
+            femme.delete()
+
+        
 
 class DocumentMariageViewSet(viewsets.ModelViewSet):
     queryset = DocumentMariage.objects.all()

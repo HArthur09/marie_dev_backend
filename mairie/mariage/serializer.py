@@ -83,3 +83,31 @@ class MariageSerializer(serializers.ModelSerializer):
         )
 
         return mariage
+    
+    def update(self, instance, validated_data):
+        # Mettre à jour les sous-objets
+        homme_data = validated_data.pop('infos_homme', None)
+        femme_data = validated_data.pop('infos_femme', None)
+        document_data = validated_data.pop('id_dossier', None)
+
+        if homme_data:
+            for attr, value in homme_data.items():
+                setattr(instance.infos_homme, attr, value)
+            instance.infos_homme.save()
+
+        if femme_data:
+            for attr, value in femme_data.items():
+                setattr(instance.infos_femme, attr, value)
+            instance.infos_femme.save()
+
+        if document_data:
+            for attr, value in document_data.items():
+                setattr(instance.id_dossier, attr, value)
+            instance.id_dossier.save()
+
+        # Mettre à jour le mariage principal
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+
+        return instance
